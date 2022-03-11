@@ -30,13 +30,25 @@ app.get("/kullaniciekle",(req,res)=>{
 });
 
 app.get("/notekle",(req,res)=>{
-    const userId="622a476908ded63af0c938a7";
+    const userId="622a476908ded63af0c938a7";//mipkin _id
     User.findById(userId).then(doc=>{
         const title="everest mermer";
         const body="5 ocak açılması";
         doc.notes.push({
             title,
             body
+        });
+        doc.save();//Veritabanına Kaydetme
+    });
+    res.end();
+});
+
+app.get("/notsil",(req,res)=>{
+    const userId="622a476908ded63af0c938a7";//mipkin _id
+    const noteIdToDel="622a60569477122bac9d643e";//Silinecek Not Id
+    User.findById(userId).then(doc=>{
+        doc.notes.map(note=>{
+            if(note._id==noteIdToDel) note.remove();
         });
         doc.save();
     });
