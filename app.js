@@ -55,6 +55,18 @@ app.get("/notsil",(req,res)=>{
     res.end();
 });
 
+app.get("/notdegistir",(req,res)=>{
+    const userId="622a476908ded63af0c938a7";//mipkin _id
+    const noteIdToUpdate="622a476908ded63af0c938a8";//Güncellenecek Not Id
+    User.findById(userId).then(doc=>{
+        doc.notes.map(note=>{
+            if(note._id==noteIdToUpdate) note.title="everest mermer as";
+        });
+        doc.save();
+    });
+    res.end();
+});
+
 app.listen(PORT,(err)=>{
     if(err) throw err;
     console.log(`Server is running on ${PORT} Port...`);
